@@ -13,7 +13,7 @@ export default function handler(
 function parseEmail(text: string) {
   return parseInt(
     text
-      .split(" ")
+      .split(/\s+/)
       .filter((x) => x.includes("₪"))[0]
       .replace("₪", "")
   );
