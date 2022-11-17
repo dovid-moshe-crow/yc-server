@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = number;
+type Data = Record<string, string>;
 
 export default function handler(
   req: NextApiRequest,
@@ -11,10 +11,23 @@ export default function handler(
 }
 
 function parseEmail(text: string) {
-  return parseInt(
-    text
-      .split(/\s+/)
-      .filter((x) => x.includes("₪"))[0]
-      .replace("₪", "")
-  );
+  const values: Record<string, string> = {};
+  text
+    .split("\n")
+    .filter((x) => x.startsWith("> *") && x.includes(":"))
+    .forEach((x) => {
+      const a = x.split("*")[2].trim();
+      const b = x.split("*")[1].trim();
+
+      if (a.includes(":")) {
+        values[a.replace(":", "")] = b;
+      } else {
+        values[b.replace(":", "")] = a;
+      }
+    });
+
+  return {
+    "שם הלקוח": values["שם הלקוח"],
+    סכום: values["סכום"].replace("₪", ""),
+  };
 }
