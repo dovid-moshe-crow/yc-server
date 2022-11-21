@@ -20,5 +20,6 @@ export default function handler(
       encodeURIComponent(json[parseInt(req.query.id as string) - 1].paragraph.number)
     }.pdf`
   );
+  
   res.status(200).send(fs.readFileSync(`${process.cwd()}/pdfs/${req.query.id}.pdf`));
 }
