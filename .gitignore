@@ -11,6 +11,7 @@
 # next.js
 /.next/
 /out/
+/files/
 
 # production
 /build
@@ -35,3 +36,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 test.js
+files/agra.PDF
