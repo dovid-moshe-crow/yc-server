@@ -13,12 +13,14 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   //const file = fs.readFileSync(`.../../pdfs/${req.query.id}.pdf`,{encoding:"base64"});
-  res.setHeader("Content-Type", "application/pdf");
-  res.setHeader(
-    "Content-Disposition",
-    `inline; filename=${
-      encodeURIComponent(json[parseInt(req.query.id as string) - 1].paragraph.number)
-    }.pdf`
-  );
-  res.status(200).send(fs.readFileSync(`${process.cwd()}/pdfs/${req.query.id}.pdf`));
+  // res.setHeader("Content-Type", "application/pdf");
+  // res.setHeader(
+  //   "Content-Disposition",
+  //   `inline; filename=${
+  //     encodeURIComponent(json[parseInt(req.query.id as string) - 1].paragraph.number)
+  //   }.pdf`
+  // );
+  // res.status(200).send(fs.readFileSync(`${process.cwd()}/pdfs/${req.query.id}.pdf`));
+
+  res.status(200)
 }
