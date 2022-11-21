@@ -5,7 +5,7 @@ import fs from "fs";
 type Data = Buffer;
 
 const json = JSON.parse(
-  fs.readFileSync(`.../../data/agra-index-data.json`).toString()
+  fs.readFileSync(`${process.cwd()}/data/agra-index-data.json`).toString()
 );
 
 export default function handler(
@@ -20,5 +20,5 @@ export default function handler(
       encodeURIComponent(json[parseInt(req.query.id as string) - 1].paragraph.number)
     }.pdf`
   );
-  res.status(200).send(fs.readFileSync(`.../../pdfs/${req.query.id}.pdf`));
+  res.status(200).send(fs.readFileSync(`${process.cwd()}/pdfs/${req.query.id}.pdf`));
 }
