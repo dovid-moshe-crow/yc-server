@@ -25,9 +25,7 @@ function parseEmail(text: string) {
         values[b.replace(":", "")] = a;
       }
     });
-
-  return {
-    "שם הלקוח": values["שם הלקוח"],
-    סכום: values["סכום"].replace("₪", ""),
-  };
+    values["סכום"] =  values["סכום"].replace("₪", "")
+  
+  return values
 }

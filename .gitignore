@@ -12,6 +12,7 @@
 /.next/
 /out/
 /files/
+/pdfs/
 
 # production
 /build
