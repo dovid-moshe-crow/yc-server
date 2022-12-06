@@ -14,7 +14,7 @@ function parseEmail(text: string) {
   const values: Record<string, string> = {};
   text
     .split("\n")
-    .filter((x) => x.startsWith("> *") && x.includes(":"))
+    .filter((x) => x.endsWith("*") && x.includes(":"))
     .forEach((x) => {
       const a = x.split("*")[2].trim();
       const b = x.split("*")[1].trim();
@@ -25,7 +25,9 @@ function parseEmail(text: string) {
         values[b.replace(":", "")] = a;
       }
     });
-    values["סכום"] =  values["סכום"].replace("₪", "")
-  
-  return values
+
+  console.log(values);
+  values["סכום"] = values["סכום"].replace("₪", "");
+
+  return values;
 }
