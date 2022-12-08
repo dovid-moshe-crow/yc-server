@@ -37,5 +37,7 @@ function parseEmail(text: string) {
       }
     });
 
+    data["סכום"] = data["סכום"]?.replace("₪", "");
+
   return data;
 }
