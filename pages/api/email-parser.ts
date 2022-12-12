@@ -27,7 +27,7 @@ function parseEmail(text: string) {
           forId = "3b57b079-684c-443c-9c2f-535b3a8d341e";
         } else if (forData.includes("סומך")) {
           forId = "ba86845e-50fd-4a19-890e-201e1668e1c9";
-        } else if (forData.includes("יפה ותמה")) {
+        } else if (forData.includes("יפה")) {
           forId = "9c82dc70-172c-4325-aa40-62682fe55803";
         }
 
@@ -37,7 +37,7 @@ function parseEmail(text: string) {
       }
     });
 
-    data["סכום"] = data["סכום"]?.replace("₪", "");
+  data["סכום"] = data["סכום"]?.replace("₪", "");
 
   return data;
 }
