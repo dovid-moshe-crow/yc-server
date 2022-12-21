@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { load } from "cheerio";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = Record<string, string>;
@@ -7,27 +8,30 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json(parseEmail(req.query.email as string));
+  res.status(200).json(parseEmailMasof(req.query.email as string));
 }
 
-function parseEmail(text: string) {
-  const values: Record<string, string> = {};
-  text
-    .split("\n")
-    .filter((x) => x.endsWith("*") && x.includes(":"))
-    .forEach((x) => {
-      const a = x.split("*")[2].trim();
-      const b = x.split("*")[1].trim();
+function parseEmailMasof(text: string) {
+  const $ = load(text);
 
-      if (a.includes(":")) {
-        values[a.replace(":", "")] = b;
-      } else {
-        values[b.replace(":", "")] = a;
-      }
-    });
+  const tbody = $("tbody").first();
 
-  console.log(values);
-  values["סכום"] = values["סכום"].replace("₪", "");
+  let arr =  tbody
+    .children()
+    .map(function (_, el) {
+      let tds = $(this).children();
+      let name = tds.first().children().first().text().replace(":", "").trim();
+      let value = tds.eq(1).text().replace("₪", "").trim();
+      return { name, value };
+    })
+    .toArray();
 
-  return values;
+  let data: Record<string,string> = {}
+
+  for(const e of arr){
+    data[e.name] = e.value
+  }
+
+  return data;
 }
+
